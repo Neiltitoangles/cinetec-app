@@ -126,11 +126,11 @@ STATICFILES_DIRS = [
 # Configuración de Servidor de Salida (SMTP)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 # Tu información de cuenta
 EMAIL_HOST_USER = 'adairangles19@gmail.com'  # Tu dirección de Gmail
 EMAIL_HOST_PASSWORD = 'fpfbhegtueuzvktd'   # AQUÍ NO VA TU CLAVE NORMAL
 DEFAULT_FROM_EMAIL = 'CINETEC <adairangles19@gmail.com>'
-EMAIL_FAIL_SILENTLY = True
+EMAIL_FAIL_SILENTLY = False
