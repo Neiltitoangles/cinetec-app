@@ -16,5 +16,5 @@ COPY . .
 # Expone el puerto 8000
 EXPOSE 8000
 
-# Ejecuta el servidor
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "cine_project.wsgi:application"]
+# Ejecuta el migrate y luego inicia el servidor
+CMD sh -c "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 cine_project.wsgi:application"
