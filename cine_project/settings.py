@@ -133,3 +133,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'adairangles19@gmail.com'  # Tu dirección de Gmail
 EMAIL_HOST_PASSWORD = 'fpfbhegtueuzvktd'   # AQUÍ NO VA TU CLAVE NORMAL
 DEFAULT_FROM_EMAIL = 'CINETEC <adairangles19@gmail.com>'
+EMAIL_FAIL_SILENTLY = True
