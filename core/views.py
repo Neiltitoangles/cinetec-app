@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.mail import send_mail, message
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 # Vista para la página principal
 def index(request):
@@ -19,7 +20,7 @@ def promociones(request):
 def dulceria(request):
     return render(request, 'dulceria.html')
 
-
+@csrf_exempt
 def procesar_pago(request):
   if request.method == 'POST':
         email_cliente = request.POST.get('email')
