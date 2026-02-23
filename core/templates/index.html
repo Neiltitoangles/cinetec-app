@@ -1,0 +1,265 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINETEC | Inicio</title>
+    <link rel="stylesheet" href="{% static 'estilo/stylo.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+
+<body>
+
+    <input type="checkbox" id="check-modal">
+
+    <header>
+        <div class="contenedor-menu">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+            </a>
+            <div class="busqueda-container">
+                <input type="text" class="busqueda-input" placeholder="Buscar película...">
+                <button class="btn-buscar">Buscar</button>
+            </div>
+            <nav>
+                <a href="{% url 'index' %}" class="activo">Inicio</a>
+                <a href="{% url 'peliculas' %}">Películas</a>
+                <a href="{% url 'promociones' %}">Promociones</a>
+                <a href="{% url 'dulceria' %}">Dulcería</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="banner">
+        <div class="slider-contenedor">
+            <div class="slide" id="foto1">
+                <img src="https://image.tmdb.org/t/p/original/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg" alt="Dune Part Two">
+                <div class="texto-banner">
+                    <h2>Duna: Parte Dos</h2>
+                    <p>Paul Atreides se une a los Fremen para vengarse de los conspiradores.</p>
+                </div>
+            </div>
+            <div class="slide" id="foto2">
+                <img src="https://image.tmdb.org/t/p/original/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg" alt="Oppenheimer">
+                <div class="texto-banner">
+                    <h2>Oppenheimer</h2>
+                    <p>La historia del físico J. Robert Oppenheimer y su papel en el desarrollo de la bomba atómica.</p>
+                </div>
+            </div>
+            <div class="slide" id="foto3">
+                <img src="https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg" alt="Spider-Man">
+                <div class="texto-banner">
+                    <h2>Spider-Man: A través del Spider-Verso</h2>
+                    <p>Miles Morales se catapulta a través del Multiverso.</p>
+                </div>
+            </div>
+            <div class="slide" id="foto4">
+                <img src="https://image.tmdb.org/t/p/original/s16H6tpK2utvwDtzZ8Qy4qm5Emw.jpg" alt="Avatar 2">
+                <div class="texto-banner">
+                    <h2>Avatar: El Camino del Agua</h2>
+                    <p>Jake Sully vive con su nueva familia en Pandora.</p>
+                </div>
+            </div>
+            <div class="slide" id="foto5">
+                <img src="https://image.tmdb.org/t/p/original/AaV1YIdWKnjAIAOe8UUKBFm327v.jpg" alt="Top Gun Maverick">
+                <div class="texto-banner">
+                    <h2>Top Gun: Maverick</h2>
+                    <p>Después de treinta años, Maverick sigue superando los límites.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navegacion-slider">
+            <a href="#foto1" class="punto"></a>
+            <a href="#foto2" class="punto"></a>
+            <a href="#foto3" class="punto"></a>
+            <a href="#foto4" class="punto"></a>
+            <a href="#foto5" class="punto"></a>
+        </div>
+    </section>
+
+    <section class="seccion-promo">
+        <div class="info-promo">
+            <h2>Estudiantes Cibertec</h2>
+            <p>Presenta tu carnet digital y accede a un <strong>50% de descuento</strong>.</p>
+            <label for="check-modal" class="boton-validar">Validar Carnet</label>
+        </div>
+        <img src="{% static 'imagenes/promocion.png' %}" alt="Estudiantes Cibertec" class="img-promo">
+    </section>
+
+    <section class="contenedor video-contenedor">
+        <h2 class="titulo">Video Promocional</h2>
+        <div class="contenido-multimedia">
+            <video src="{% static 'video/Luigui.mp4' %}" controls class="video-promo"></video>
+            <div class="poster-contenedor">
+                <img src="{% static 'imagenes/LuiguielVengador.png' %}" alt="Luigui el Vengador" class="img-banner-video">
+                <h3 class="texto-estreno">Próximo Estreno: Luigui el Vengador</h3>
+            </div>
+        </div>
+    </section>
+
+    <main class="contenedor">
+        <h2 class="titulo">Tendencias</h2>
+        <div class="galeria">
+            <div class="item-galeria grande">
+                <img src="https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg" alt="Deadpool & Wolverine">
+                <div class="texto-oculto">
+                    <h3>Deadpool & Wolverine</h3>
+                    <p>El crossover más esperado del universo Marvel.</p>
+                </div>
+            </div>
+            <div class="item-galeria ancho">
+                <img src="https://image.tmdb.org/t/p/original/2RVcJbWFmICRDsVxRI8F5xRmRsK.jpg" alt="Intensamente 2">
+                <div class="texto-oculto">
+                    <h3>Intensamente 2</h3>
+                    <p>Nuevas emociones llegan a la mente de Riley.</p>
+                </div>
+            </div>
+            <div class="item-galeria">
+                <img src="https://image.tmdb.org/t/p/original/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg" alt="Godzilla y Kong">
+                <div class="texto-oculto">
+                    <h3>Godzilla y Kong</h3>
+                    <p>El Nuevo Imperio</p>
+                </div>
+            </div>
+            <div class="item-galeria">
+                <img src="https://image.tmdb.org/t/p/original/gKkl37BQuKTanygYQG1pyYgLVgf.jpg" alt="Planeta de los Simios">
+                <div class="texto-oculto">
+                    <h3>Planeta de los Simios</h3>
+                    <p>Nuevo Reino</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="titulo">Próximos Estrenos</h2>
+        <div class="rejilla-simple">
+            <div class="tarjeta">
+                <img src="{% static 'imagenes/wonderwall_instagram_teaser_poster_las_f9b6b48a.jpeg' %}" alt="Mufasa">
+                <div class="info-tarjeta">
+                    <h3>Mufasa: El Rey León</h3>
+                    <p>Aventura / Drama</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="{% static 'imagenes/MV5BNTRlNmU1NzEtODNkNC00ZGM3LWFmNzQtMjBlMWRiYTcyMGRhXkEyXkFqcGc@._V1_.jpg' %}" alt="Joker 2">
+                <div class="info-tarjeta">
+                    <h3>Joker: Folie a Deux</h3>
+                    <p>Drama / Crimen</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="{% static 'imagenes/d3d170cab1ef757a9a437cb9aa70bb33a8897f31f327f02c2de4d5a50dd32ff4.jpg' %}" alt="Sonic 3">
+                <div class="info-tarjeta">
+                    <h3>Sonic 3</h3>
+                    <p>Aventura / Acción</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="titulo">En Cartelera</h2>
+        <div class="rejilla-simple">
+            <div class="tarjeta">
+                <img src="https://image.tmdb.org/t/p/original/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg" alt="Kung Fu Panda 4">
+                <div class="info-tarjeta">
+                    <h3>Kung Fu Panda 4</h3>
+                    <p>Animación / Acción</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="https://image.tmdb.org/t/p/original/sh7Rg8Er3tFcN9BpKIPOMvALgZd.jpg" alt="Civil War">
+                <div class="info-tarjeta">
+                    <h3>Guerra Civil</h3>
+                    <p>Acción / Suspenso</p>
+                </div>
+            </div>
+            <div class="tarjeta">
+                <img src="{% static 'imagenes/MV5BNGQ0YmRlYjgtYzA3NS00ZmJkLTliODYtNWIzODEzNTFiZmQ1XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg' %}" alt="The Fall Guy">
+                <div class="info-tarjeta">
+                    <h3>Profesión Peligro</h3>
+                    <p>Acción / Comedia</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="beneficios">
+            <div class="caja-beneficio">
+                <h3>Socios CINETEC</h3>
+                <p>Acumula puntos en cada visita y canjealos por entradas gratis.</p>
+            </div>
+            <div class="caja-beneficio">
+                <h3>Martes de Locura</h3>
+                <p>Todas las entradas a mitad de precio todos los martes.</p>
+            </div>
+            <div class="caja-beneficio">
+                <h3>Dulcería App</h3>
+                <p>Compra tus combos desde la web y evita las filas.</p>
+            </div>
+        </div>
+
+        <h2 class="titulo">Encuéntranos</h2>
+        <div class="mapa-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.83984533038!2d-77.0305191!3d-12.0543634!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDAzJzE1LjciUyA3N8KwMDEnNDkuOSJX!5e0!3m2!1ses!2spe!4v1640000000000"
+                allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </main>
+
+    <footer>
+        <div class="pie-contenedor">
+            <div class="columna">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+                </a>
+                <p>La mejor experiencia de cine digital, directamente para ti.</p>
+            </div>
+            <div class="columna">
+                <h3>Empresa</h3>
+                <ul>
+                    <li><a href="#">Nuestra Misión</a></li>
+                    <li><a href="#">Nuestra Visión</a></li>
+                    <li><a href="#">Trabaja con Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="columna">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Políticas de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Libro de Reclamaciones</a></li>
+                </ul>
+            </div>
+            <div class="columna">
+                <h3>Síguenos</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com" target="_blank">Instagram</a>
+                    <a href="https://twitter.com" target="_blank">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="pie-final">
+            <p>© 2026 CINETEC | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="modal-fondo">
+        <div class="modal-caja">
+            <label for="check-modal" class="cerrar-modal">×</label>
+            <h2>Validar Carnet</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="nombre">Nombres Completos:</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresa tus nombres" required>
+
+                <label for="carnet">Subir Foto del Carnet:</label>
+                <input type="file" id="carnet" name="carnet" accept="image/*" required>
+
+                <button type="submit" class="btn-enviar">Enviar Validación</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

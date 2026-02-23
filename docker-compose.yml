@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    # Esto ayuda a que la comunicación con el host sea más fluida
+    network_mode: bridge 
+    environment:
+      - DJANGO_SETTINGS_MODULE=cine_project.settings
+      - PYTHONUNBUFFERED=1

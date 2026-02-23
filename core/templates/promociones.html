@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINETEC | Promociones</title>
+    <link rel="stylesheet" href="{% static 'estilo/stylo.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor-menu">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+            </a>
+            <div class="busqueda-container">
+                <input type="text" class="busqueda-input" placeholder="Buscar promoción...">
+                <button class="btn-buscar">Buscar</button>
+            </div>
+            <nav>
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'peliculas' %}">Películas</a>
+                <a href="{% url 'promociones' %}" class="activo">Promociones</a>
+                <a href="{% url 'dulceria' %}">Dulcería</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <section class="banner-promo">
+            <div class="texto-banner-promo">
+                <h1>Promociones Exclusivas</h1>
+                <p>¡Disfruta más del cine pagando menos!</p>
+            </div>
+        </section>
+
+        <h2 class="titulo">Ofertas del Sistema</h2>
+
+        <div class="rejilla-simple">
+            <div class="tarjeta tarjeta-promo promo-azul">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500" alt="Promoción 2x1">
+                <div class="contenido-promo">
+                    <h2>2X1</h2>
+                    <p class="subtitulo">Martes y Jueves</p>
+                    <p class="descripcion">Válido en todas nuestras salas digitales para películas 2D.</p>
+                    <a href="#" class="btn-buscar btn-promo" style="text-decoration: none; display: inline-block;">Canjear Ahora</a>
+                </div>
+            </div>
+
+            <div class="tarjeta tarjeta-promo promo-rojo">
+                <img src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=500" alt="Descuento Socio">
+                <div class="contenido-promo">
+                    <h2>-30%</h2>
+                    <p class="subtitulo">Cine Socio</p>
+                    <p class="descripcion">Descuento directo de lunes a miércoles presentando tu carnet.</p>
+                    <a href="#" class="btn-buscar btn-promo" style="text-decoration: none; display: inline-block;">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="tarjeta tarjeta-promo promo-naranja">
+                <img src="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=500" alt="Cumpleaños Gratis">
+                <div class="contenido-promo">
+                    <h2>GRATIS</h2>
+                    <p class="subtitulo">Cumpleañero</p>
+                    <p class="descripcion">Tu entrada es gratis el día de tu cumpleaños mostrando DNI.</p>
+                    <a href="#" class="btn-buscar btn-promo" style="text-decoration: none; display: inline-block;">Más Info</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="pie-contenedor">
+            <div class="columna">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+                </a>
+                <p>La mejor experiencia de cine digital, directamente para ti.</p>
+            </div>
+            <div class="columna">
+                <h3>Empresa</h3>
+                <ul>
+                    <li><a href="#">Nuestra Misión</a></li>
+                    <li><a href="#">Trabaja con Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="columna">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Libro de Reclamaciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pie-final">
+            <p>&copy; 2026 CINETEC | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

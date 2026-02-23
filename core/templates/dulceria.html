@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cine Pro - Dulcería y Pagos</title>
+    <link rel="stylesheet" href="{% static 'estilo/stylo.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="contenedor-menu">
+            <div class="logo">
+                <img src="{% static 'imagenes/logo.png' %}" alt="Logo Cine">
+            </div>
+            <div class="busqueda-container">
+                <input type="text" class="busqueda-input" placeholder="¿Qué se te antoja hoy?">
+                <button class="btn-buscar">Buscar</button>
+            </div>
+            <nav>
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'peliculas' %}">Peliculas</a>
+                <a href="{% url 'promociones' %}">Promociones</a>
+                <a href="{% url 'dulceria' %}">Dulcería</a>
+            </nav>
+        </div>
+    </header>
+
+    <div id="carrito-flotante">
+        <div id="carrito-resumen">
+            <p>🛒 <span id="cart-count">0</span> Productos</p>
+            <p>Total: S/ <span id="cart-total">0.00</span></p>
+        </div>
+        
+        <ul id="lista-carrito" style="display: none; list-style: none; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.3); margin-top: 10px; max-height: 200px; overflow-y: auto;">
+        </ul>
+
+        <div class="carrito-acciones" style="display: flex; gap: 8px; margin-top: 10px;">
+            <button class="btn-ver" onclick="toggleCarrito()" style="flex:1; background:#ffcc00; border:none; padding:8px; border-radius:5px; cursor:pointer; font-weight:bold;">DETALLES</button>
+            <button class="btn-comprar" onclick="abrirPasarela()" style="flex:1; background:#28a745; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer; font-weight:bold;">COMPRAR</button>
+        </div>
+    </div> 
+
+     <div class="contenedor-titulo-central">
+        <h2 class="titulo">Explora Nuestra Dulcería</h2>
+     </div>
+
+    <section class="contenedor-principal">
+        <div class="catalogo-6-cuadros">
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/combopersonal.jpg' %}" alt="Combo Personal">
+                <h3>Combo Personal</h3>
+                <p>1 Popcorn Mediano + 1 Gaseosa Mediana</p>
+                <p class="precio-especial">S/ 18.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/comboduo.jpg' %}" alt="Combo Dúo">
+                <h3>Combo Dúo</h3>
+                <p>1 Popcorn Grande + 2 Gaseosas Medianas</p>
+                <p class="precio-especial">S/ 32.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/comboofamiliar.jpg' %}" alt="Combo Familiar">
+                <h3>Combo Familiar</h3>
+                <p>2 Popcorn Grandes + 4 Gaseosas Medianas</p>
+                <p class="precio-especial">S/ 55.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/combokits.png' %}" alt="Combo Kids">
+                <h3>Combo Kids</h3>
+                <p>1 Popcorn Pequeño + 1 Jugo + Juguete</p>
+                <p class="precio-especial">S/ 22.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/combonachos.jpg' %}" alt="Combo Nachos">
+                <h3>Combo Nachos</h3>
+                <p>1 Nachos con Queso + 1 Gaseosa Mediana</p>
+                <p class="precio-especial">S/ 20.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+            <div class="tarjeta-dulce">
+                <img src="{% static 'imagenes/combohogdog.jpg' %}" alt="Combo Hot Dog">
+                <h3>Combo Hot Dog</h3>
+                <p>1 Hot Dog Grande + 1 Gaseosa Mediana</p>
+                <p class="precio-especial">S/ 19.00</p>
+                <button class="btn-añadir">AÑADIR</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal-pago" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 400px; color: #333; font-family: sans-serif;">
+            <h2 style="text-align: center; color: #0099cc;">Finalizar Compra</h2>
+            <p style="text-align: center;">Total: <b>S/ <span id="monto-final">0.00</span></b></p>
+            <hr>
+            
+            <form id="form-pago" onsubmit="procesarPagoFinal(event)">
+                {% csrf_token %}
+                
+                <label style="display:block; margin-top:10px; font-weight:bold;">Correo Electrónico:</label>
+                <input type="email" id="input-correo" required placeholder="tu@correo.com" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ccc; border-radius:5px;">
+
+                <label style="display:block; font-weight:bold;">Método de Pago:</label>
+                <select id="select-metodo" onchange="actualizarMetodoPago()" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;">
+                    <option value="tarjeta">Tarjeta de Débito / Crédito</option>
+                    <option value="yape">Yape</option>
+                    <option value="plin">Plin</option>
+                </select>
+                <div id="contenedor-qr" style="display: none; text-align: center; margin-top: 15px; border: 1px dashed #0099cc; padding: 10px; border-radius: 10px;">
+                    <p id="texto-qr" style="font-weight: bold; color: #0099cc;"></p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CINETEC-PAGO" alt="QR" style="width: 130px;">
+                    <p style="margin-top: 5px; font-size: 0.85rem;">Nombre: CINETEC S.A.C.</p>
+                </div>
+
+                <div id="contenedor-dinamico" style="margin-top:15px; text-align:center;">
+                    <input type="text" placeholder="Número de Tarjeta" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px;">
+                </div>
+
+                <button type="submit" style="width:100%; background:#28a745; color:white; padding:15px; border:none; border-radius:8px; margin-top:20px; font-weight:bold; cursor:pointer;">PAGAR Y ENVIAR BOLETA</button>
+                <button type="button" onclick="cerrarPasarela()" style="width:100%; background:none; border:none; color:red; margin-top:10px; cursor:pointer;">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="pie-final">
+            <p>&copy; 2026 CINETEC | Experiencia Cinematográfica Completa</p>
+        </div>
+    </footer>
+<div id="contenedor-pdf-externo" style="position: absolute; left: -9999px; background-color: #f0f0f0; padding: 40px; width: 800px;">
+    
+    <<div id="contenedor-pdf-externo" style="position: absolute; left: -9999px; background-color: #f0f0f0; padding: 40px; width: 800px;">
+    
+    <div id="boleta-pdf" style="width: 550px; margin: 0 auto; padding: 40px; background-color: #ffffff; color: #333333; border: 1px solid #0099cc; font-family: 'Segoe UI', Arial, sans-serif; box-sizing: border-box; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+        
+        <div style="text-align: center; border-bottom: 3px solid #0099cc; padding-bottom: 15px; margin-bottom: 20px;">
+            <h1 style="margin: 0; font-size: 32px; color: #0099cc; text-transform: uppercase; font-weight: bold;">CINETEC S.A.C.</h1>
+            <p style="margin: 5px 0; font-size: 14px; color: #666;">RUC: 20601234567 | Av. Javier Prado 123, Lima</p>
+            <div style="display: inline-block; background-color: #0099cc; color: white; padding: 6px 25px; border-radius: 20px; margin-top: 10px; font-weight: bold; letter-spacing: 1px; font-size: 13px;">
+                BOLETA DE VENTA ELECTRÓNICA
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px; font-size: 15px; border-left: 4px solid #0099cc; padding: 12px 15px; background-color: #f9f9f9;">
+            <p style="margin: 4px 0;"><strong>FECHA:</strong> <span id="pdf-fecha"></span></p>
+            <p style="margin: 4px 0;"><strong>CLIENTE:</strong> <span id="pdf-correo"></span></p>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <thead>
+                <tr style="background-color: #0099cc; color: #ffffff;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #0099cc;">DESCRIPCIÓN</th>
+                    <th style="padding: 12px; text-align: right; border: 1px solid #0099cc; width: 100px;">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody id="pdf-items" style="font-size: 14px; color: #333;">
+                </tbody>
+            <tfoot>
+                <tr>
+                    <td style="padding: 15px; text-align: right; font-weight: bold; border-top: 2px solid #0099cc; font-size: 16px;">TOTAL A PAGAR:</td>
+                    <td style="padding: 15px; text-align: right; font-weight: bold; font-size: 20px; color: #0099cc; border-top: 2px solid #0099cc; background-color: #f0faff;">S/ <span id="pdf-total-monto">0.00</span></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="text-align: center; margin-top: 35px; font-size: 11px; color: #888; border-top: 1px dashed #ccc; padding-top: 20px;">
+            <p style="margin: 2px 0;">Representación impresa de la Boleta Electrónica.</p>
+            <p style="color: #0099cc; font-weight: bold; margin-top: 5px; font-size: 13px;">¡GRACIAS POR ELEGIRNOS, DISFRUTA LA FUNCIÓN!</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Configuración inicial
+    const qrPath = "{% static 'img/qr.png' %}";
+    let carrito = [];
+    let montoTotal = 0;
+
+    const listaUl = document.getElementById('lista-carrito');
+    const countSpan = document.getElementById('cart-count');
+    const totalSpan = document.getElementById('cart-total');
+
+    // 2. Lógica de añadir al carrito
+    document.querySelectorAll('.btn-añadir').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tarjeta = btn.closest('.tarjeta-dulce');
+            const nombre = tarjeta.querySelector('h3').innerText;
+            const precio = parseFloat(tarjeta.querySelector('.precio-especial').innerText.replace('S/ ', ''));
+            
+            const item = { id: Date.now(), nombre, precio };
+            carrito.push(item);
+            actualizarVistaCarrito();
+
+            btn.innerText = "¡OK!";
+            setTimeout(() => { btn.innerText = "AÑADIR"; }, 600);
+        });
+    });
+
+    function actualizarVistaCarrito() {
+        listaUl.innerHTML = "";
+        montoTotal = 0;
+        carrito.forEach(prod => {
+            montoTotal += prod.precio;
+            const li = document.createElement('li');
+            li.style.display = "flex";
+            li.style.justifyContent = "space-between";
+            li.style.color = "white";
+            li.style.marginBottom = "8px";
+            li.innerHTML = `<span>${prod.nombre}</span> <button onclick="eliminarDelCarrito(${prod.id})" style="background:red; color:white; border:none; border-radius:4px; padding:2px 8px; cursor:pointer;">X</button>`;
+            listaUl.appendChild(li);
+        });
+        countSpan.innerText = carrito.length;
+        totalSpan.innerText = montoTotal.toFixed(2);
+    }
+
+    function eliminarDelCarrito(id) {
+        carrito = carrito.filter(p => p.id !== id);
+        actualizarVistaCarrito();
+    }
+
+    function toggleCarrito() {
+        listaUl.style.display = (listaUl.style.display === "none") ? "block" : "none";
+    }
+
+    // 3. Control de la Pasarela de Pago
+    function abrirPasarela() {
+        if(carrito.length === 0) return alert("Carrito vacío");
+        document.getElementById('monto-final').innerText = montoTotal.toFixed(2);
+        document.getElementById('modal-pago').style.display = "flex";
+    }
+
+    function cerrarPasarela() {
+        document.getElementById('modal-pago').style.display = "none";
+    }
+
+    function actualizarMetodoPago() {
+        const metodo = document.getElementById('select-metodo').value;
+        const container = document.getElementById('contenedor-dinamico');
+        
+        if(metodo === 'tarjeta') {
+            container.innerHTML = `
+                <div style="margin-top:10px;">
+                    <input type="text" placeholder="Número de Tarjeta" style="width:100%; padding:10px; border:1px solid #ccc; border-radius:5px; margin-bottom:10px;">
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" placeholder="MM/YY" style="width:50%; padding:10px; border:1px solid #ccc; border-radius:5px;">
+                        <input type="text" placeholder="CVV" style="width:50%; padding:10px; border:1px solid #ccc; border-radius:5px;">
+                    </div>
+                </div>`;
+        } else if (metodo === 'yape' || metodo === 'plin') {
+            const nombreMetodo = metodo.charAt(0).toUpperCase() + metodo.slice(1);
+            const urlFinalQr = `https://i.ibb.co/NgJRX5TD/image.png`;
+            container.innerHTML = `
+                <div style="text-align:center; margin-top:15px; border: 2px dashed #0099cc; padding: 15px; border-radius: 10px; background: #f0faff;">
+                    <p style="margin-bottom:10px; font-weight:bold; color:#0077a3;">Escanea para pagar con ${nombreMetodo}</p>
+                    <img src="${urlFinalQr}" alt="Código QR" style="width:150px; border:5px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="margin-top:10px; font-size:1.1rem;">Paga al: <b>963 057 276</b></p>
+                    <small style="color:#666;">CINETEC S.A.C.</small>
+                </div>`;
+        }
+    }
+
+    // 4. Procesamiento de Pago y Django
+    function procesarPagoFinal(e) {
+        e.preventDefault();
+        const correo = document.getElementById('input-correo').value;
+        const total = document.getElementById('monto-final').innerText;
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Desactivar botón para evitar múltiples clics
+        const btnPagar = e.target.querySelector('button');
+        btnPagar.innerText = "Procesando...";
+        btnPagar.disabled = true;
+
+        fetch('/procesar-pago/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrftoken
+            },
+            body: `email=${correo}&total=${total}`
+        })
+        .then(response => response.json())
+           .then(data => {
+            if(data.status === 'ok') {
+                // 1. Lanzamos la descarga del PDF (sin el .then para que no bloquee)
+                try {
+                    descargarBoletaPDF(correo);
+                } catch (e) {
+                    console.log("Error silencioso en PDF: ", e);
+                }
+
+                // 2. Mostramos el éxito DE INMEDIATO
+                alert('✅ ¡Pago exitoso! Tu correo ha sido enviado y tu boleta se está descargando.');
+
+                // 3. Limpiamos el carrito y cerramos
+                carrito = [];
+                actualizarVistaCarrito();
+                cerrarPasarela();
+                
+            } else {
+                alert('❌ Error: ' + data.message);
+                btnPagar.innerText = "PAGAR Y ENVIAR BOLETA";
+                btnPagar.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Ocurrió un error al conectar con el servidor.');
+            btnPagar.innerText = "PAGAR Y ENVIAR BOLETA";
+            btnPagar.disabled = false;
+        });
+    }
+
+    // 5. Generación de PDF Mejorada
+function descargarBoletaPDF(correo) {
+    return new Promise((resolve) => {
+        try {
+            // 1. Inyectar datos
+            document.getElementById('pdf-fecha').innerText = new Date().toLocaleString('es-PE');
+            document.getElementById('pdf-correo').innerText = correo;
+            document.getElementById('pdf-total-monto').innerText = document.getElementById('cart-total').innerText;
+            
+            const tbody = document.getElementById('pdf-items');
+            tbody.innerHTML = ""; 
+            carrito.forEach(p => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="padding: 12px; border: 1px solid #eee; text-align: left;">${p.nombre}</td>
+                        <td style="padding: 12px; border: 1px solid #eee; text-align: right;">S/ ${p.precio.toFixed(2)}</td>
+                    </tr>`;
+            });
+
+            // 2. Capturar
+            const elemento = document.getElementById('boleta-pdf');
+            
+            const opciones = {
+                margin: 0.5,
+                filename: 'Boleta_Cinetec.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 3, 
+                    useCORS: true,
+                    letterRendering: true,
+                    backgroundColor: '#ffffff'
+                },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opciones).from(elemento).save()
+                .then(() => {
+                    resolve();
+                })
+                .catch(err => {
+                    console.error("Error:", err);
+                    resolve();
+                });
+
+        } catch (error) {
+            console.error("Error crítico:", error);
+            resolve();
+        }
+    });
+}
+</script>
+</body>
+</html>

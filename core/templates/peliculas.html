@@ -1,0 +1,701 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINETEC | Películas</title>
+    <link rel="stylesheet" href="{% static 'estilo/stylo.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="contenedor-menu">
+            <a href="{% url 'index' %}" class="logo">
+                <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+            </a>
+            <div class="busqueda-container">
+                <input type="text" class="busqueda-input" placeholder="Buscar película...">
+                <button class="btn-buscar">Buscar</button>
+            </div>
+            <nav>
+                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'peliculas' %}">Películas</a>
+                <a href="{% url 'promociones' %}">Promociones</a>
+                <a href="{% url 'dulceria' %}">Dulcería</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        <section class="banner-promo">
+            <div class="texto-banner-promo">
+                <h1>Cartelera Digital</h1>
+                <p>Disfruta de los mejores estrenos en alta definición</p>
+            </div>
+        </section>
+
+        <div class="barra-filtros">
+            <button class="filtro-btn activo" data-filter="todos">Todas</button>
+            <button class="filtro-btn" data-filter="ciencia-ficcion">Ciencia Ficción</button>
+            <button class="filtro-btn" data-filter="accion">Acción</button>
+            <button class="filtro-btn" data-filter="epico">Épico</button>
+        </div>
+
+        <div class="rejilla">
+
+            <div class="tarjeta-pelicula" data-genero="ciencia-ficcion" data-titulo="Interstellar"
+                data-info="Ciencia Ficción • 2h 49m" data-video="{% static 'video/interestelar.mp4' %}"
+                data-comprar="#">
+                <div class="media">
+                    <span class="badge">Estreno</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/interestelar.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>Interstellar</h3>
+                    <p>Ciencia Ficción • 2h 49m</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-pelicula" data-genero="accion" data-titulo="The Batman" data-info="Acción • 2h 56m"
+                data-video="{% static 'video/batman.mp4' %}" data-comprar="#">
+                <div class="media">
+                    <span class="badge">Más Vista</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/batman.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>The Batman</h3>
+                    <p>Acción • 2h 56m</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-pelicula" data-genero="epico" data-titulo="Duna: Parte II" data-info="Épico • 2h 46m"
+                data-video="{% static 'video/dune.mp4' %}" data-comprar="#">
+                <div class="media">
+                    <span class="badge">Nuevo</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/dune.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>Duna: Parte II</h3>
+                    <p>Épico • 2h 46m</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-pelicula" data-genero="epico" data-titulo="Avengers: Doomsday" data-info="Épico • 2h 46m"
+                data-video="{% static 'video/avenger.mp4' %}" data-comprar="#">
+                <div class="media">
+                    <span class="badge">Pronto</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/avenger.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>Avengers: Doomsday</h3>
+                    <p>Épico • 2h 46m</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-pelicula" data-genero="epico" data-titulo="SPIDER-NOIR" data-info="Épico • 2h 10m"
+                data-video="{% static 'video/espiderman.mp4' %}" data-comprar="#">
+                <div class="media">
+                    <span class="badge">Pronto</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/espiderman.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>SPIDER-NOIR</h3>
+                    <p>Épico • 2h 10m</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-pelicula" data-genero="epico" data-titulo="MONARCH: LEGADO"
+                data-info="Épico • 3h 18m" data-video="{% static 'video/godzilla.mp4' %}" data-comprar="#">
+                <div class="media">
+                    <span class="badge">Pronto</span>
+                    <div class="overlay"></div>
+
+                    <video class="thumb" muted playsinline preload="metadata">
+                        <source src="{% static 'video/godzilla.mp4' %}" type="video/mp4">
+                    </video>
+
+                    <div class="acciones">
+                        <button class="btn primario ver-trailer">▶ Ver trailer</button>
+                        <a class="btn link-comprar comprar" href="#">🎟 Comprar</a>
+                    </div>
+                </div>
+
+                <div class="info-cuerpo">
+                    <h3>MONARCH: LEGADO DE MOUNSTROS</h3>
+                    <p>Épico • 3h 18m</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="pie-contenedor">
+            <div class="columna">
+                <a href="{% url 'index' %}" class="logo">
+                    <img src="{% static 'imagenes/logo.png' %}" alt="CINETEC Logo">
+                </a>
+                <p>La mejor experiencia de cine digital, directamente para ti.</p>
+            </div>
+            <div class="columna">
+                <h3>Empresa</h3>
+                <ul>
+                    <li><a href="#">Nuestra Misión</a></li>
+                    <li><a href="#">Nuestra Visión</a></li>
+                    <li><a href="#">Trabaja con Nosotros</a></li>
+                </ul>
+            </div>
+            <div class="columna">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Políticas de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Libro de Reclamaciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pie-final">
+            <p>&copy; 2026 CINETEC | Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="modalTrailer" aria-hidden="true">
+        <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-titulo" id="modalTitulo">Título</h3>
+                    <p class="modal-sub" id="modalInfo">Info</p>
+                </div>
+                <button class="cerrar" id="btnCerrar" aria-label="Cerrar">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <video id="videoModal" controls playsinline></video>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn" id="btnComprarModal" href="#" target="_blank">🎟 Comprar</a>
+                <button class="btn primario" id="btnReiniciar">⟲ Reiniciar</button>
+            </div>
+        </div>
+    </div>
+<div id="modalHorarios" class="modal">
+    <div class="modal-contenido" style="max-width: 850px; display: flex; padding: 0; overflow: hidden; background: #1a1c20; border: 1px solid #333; border-radius: 12px; position: relative;">
+        
+        <div id="imgPeliModal" style="width: 45%; background-size: cover; background-position: center; min-height: 450px; border-right: 2px solid #0099cc; background-color: #000;"></div>
+        
+        <div style="width: 55%; padding: 40px; text-align: left;">
+            <h2 id="txtPeliHorario" style="color: white; font-size: 2rem; margin-bottom: 5px; font-family: sans-serif;"></h2>
+            <p style="color: #0099cc; font-weight: bold; margin-bottom: 30px; letter-spacing: 1px;">Horarios de la película</p>
+            
+            <div class="opciones-horario" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <button class="btn-hora" onclick="pasoAAsientos('12:00 PM')">12 PM</button>
+                <button class="btn-hora" onclick="pasoAAsientos('2:00 PM')">2 PM</button>
+                <button class="btn-hora" onclick="pasoAAsientos('4:00 PM')">4 PM</button>
+                <button class="btn-hora" onclick="pasoAAsientos('6:00 PM')">6 PM</button>
+                <button class="btn-hora" onclick="pasoAAsientos('8:00 PM')">8 PM</button>
+                <button class="btn-hora" onclick="pasoAAsientos('10:00 PM')">10 PM</button>
+            </div>
+            
+            <button class="cerrar" onclick="cerrarNuevoModal('modalHorarios')" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 28px; cursor: pointer;">&times;</button>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalAsientos">
+    <div class="modal-contenido">
+        <div class="modal-header">
+            <h3>Selecciona tus Asientos</h3>
+            <button class="cerrar" onclick="cerrarNuevoModal('modalAsientos')">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="pantalla-cine">PANTALLA</div>
+            <div id="gridAsientos" class="grid-asientos"></div>
+            <div style="color: white; text-align: center; margin-top: 15px;">
+                <p>Asientos: <span id="txtAsientosSeleccionados" style="color: #00ffff;">-</span></p>
+                <p>Monto Total: S/ <span id="txtMontoAsientos" style="color: #00ffff; font-size: 20px;">0.00</span></p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn primario" onclick="abrirPasarelaFinal()">Confirmar y Pagar</button>
+        </div>
+    </div>
+</div>
+
+<div id="modalPago" class="modal">
+    <div class="modal-contenido" style="max-width: 450px; background: #1a1c20; color: white; border-radius: 15px; border: 1px solid #333;">
+        
+        <div class="modal-header" style="border-bottom: 1px solid #333; padding: 15px; display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: #0099cc; margin: 0; width: 100%; text-align: center;">Finalizar Compra</h2>
+            <button class="cerrar" onclick="cerrarNuevoModal('modalPago')" style="background: none; border: none; color: white; font-size: 24px; cursor: pointer;">✕</button>
+        </div>
+        
+        <div class="modal-body" style="padding: 20px;">
+            <div style="background: #25282e; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+                <p style="margin: 0; font-size: 1.1rem;">Total a pagar:</p>
+                <h3 style="margin: 5px 0; color: #0099cc; font-size: 2rem;">S/ <span id="monto-total-pago">0.00</span></h3>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.9rem; color: #aaa;">Correo Electrónico:</label>
+                <input type="email" id="correo-pago" placeholder="ejemplo@correo.com" 
+                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #0b0e14; color: white; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 5px; font-size: 0.9rem; color: #aaa;">Método de Pago:</label>
+                <select id="metodo-pago" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #444; background: #0b0e14; color: white;">
+                    <option value="yape">Yape / Plin</option>
+                    <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                </select>
+            </div>
+
+            <div id="qr-yape" style="text-align: center; border: 2px dashed #0099cc; padding: 15px; border-radius: 12px; background: rgba(0, 153, 204, 0.05);">
+                <p style="color: #0099cc; font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">Escanea para pagar con Yape</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CINETEC-PAYMENT" 
+                     alt="QR Yape" style="width: 150px; border-radius: 5px; background: white; padding: 5px;">
+                <p style="margin-top: 10px; font-size: 0.9rem;">Paga al: <b style="color: #fff;">963 057 276</b><br>
+                <small style="color: #888;">CINETEC S.A.C.</small></p>
+            </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 20px; display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="procesarPago()" 
+                    style="background: #28a745; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: background 0.3s;">
+                CONFIRMAR PAGO
+            </button>
+            
+            <button onclick="cerrarNuevoModal('modalPago')" 
+                    style="background: transparent; color: #ff4444; border: none; cursor: pointer; padding: 5px;">
+                Cancelar operación
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="boleta-pdf" style="display: none; width: 450px; padding: 30px; background: #e0e0e0; color: #000; font-family: 'Courier New', monospace; border: 2px dashed #000; text-align: center; margin: 20px auto;">
+    <h1 style="margin: 0; letter-spacing: 5px;">CINETEC</h1>
+    <div style="border-top: 2px solid #000; margin: 10px 0;"></div>
+    <h3 style="margin: 10px 0;">BOLETA ELECTRÓNICA</h3>
+    <div style="border-top: 1px solid #000; margin-bottom: 20px;"></div>
+
+    <div style="text-align: left; font-size: 16px; line-height: 1.8;">
+        <p><strong>PELÍCULA:</strong> <span id="pdf-peli-nombre"></span></p>
+        <p><strong>SALA:</strong> 3</p>
+        <p><strong>ASIENTO:</strong> <span id="pdf-asientos-lista"></span></p>
+        <p><strong>HORA:</strong> <span id="pdf-hora-fijada"></span></p>
+        <p><strong>FECHA:</strong> 22/02/2026</p>
+        <p><strong>CLIENTE:</strong> <span id="pdf-correo-cliente"></span></p> <p style="font-size: 20px; border-top: 1px solid #000; padding-top: 10px;"><strong>TOTAL:</strong> S/ <span id="pdf-monto-total"></span></p>
+    </div>
+
+    <div style="margin: 30px 0;">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CINETEC-VALID" style="width: 150px;">
+        <p style="font-size: 12px; margin-top: 5px;">TXN-902919</p>
+    </div>
+
+</div>
+   <script>
+        // ====== FILTROS ======
+        const filtroBtns = document.querySelectorAll(".filtro-btn");
+        const tarjetas = document.querySelectorAll(".tarjeta-pelicula");
+        // ====== VARIABLES DE COMPRA ======
+        let montoTotal = 0;
+        let carrito = [];
+        let compraActual = { titulo: '', hora: '', asientos: [], precio: 15.00 };
+
+        filtroBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filtroBtns.forEach(b => b.classList.remove("activo"));
+                btn.classList.add("activo");
+
+                const filtro = btn.dataset.filter;
+                tarjetas.forEach(card => {
+                    const genero = card.dataset.genero;
+                    const mostrar = (filtro === "todos" || genero === filtro);
+                    card.classList.toggle("oculta", !mostrar);
+                });
+            });
+        });
+
+        // ====== MODAL ======
+        const modal = document.getElementById("modalTrailer");
+        const videoModal = document.getElementById("videoModal");
+        const modalTitulo = document.getElementById("modalTitulo");
+        const modalInfo = document.getElementById("modalInfo");
+        const btnComprarModal = document.getElementById("btnComprarModal");
+        const btnCerrar = document.getElementById("btnCerrar");
+        const btnReiniciar = document.getElementById("btnReiniciar");
+
+        function abrirModal({ titulo, info, videoSrc, comprarLink }) {
+            modal.classList.add("abierto");
+            modal.setAttribute("aria-hidden", "false");
+
+            modalTitulo.textContent = titulo || "Trailer";
+            modalInfo.textContent = info || "";
+            btnComprarModal.href = comprarLink || "#";
+
+            // Cargar video SOLO al abrir
+            videoModal.src = videoSrc;
+            videoModal.currentTime = 0;
+            videoModal.play().catch(() => { });
+            document.body.style.overflow = "hidden";
+        }
+
+        function cerrarModal() {
+            modal.classList.remove("abierto");
+            modal.setAttribute("aria-hidden", "true");
+
+            videoModal.pause();
+            videoModal.removeAttribute("src");
+            videoModal.load();
+            document.body.style.overflow = "";
+        }
+
+        // abrir modal desde cada tarjeta (botón ver trailer o click en tarjeta)
+        tarjetas.forEach(card => {
+            const btnVer = card.querySelector(".ver-trailer");
+            const btnComprar = card.querySelector(".comprar");
+
+            // Mantener link Comprar actualizado desde data-comprar
+            if (btnComprar && card.dataset.comprar) btnComprar.href = card.dataset.comprar;
+
+            const payload = () => ({
+                titulo: card.dataset.titulo,
+                info: card.dataset.info,
+                videoSrc: card.dataset.video,
+                comprarLink: card.dataset.comprar
+            });
+
+            btnVer?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                abrirModal(payload());
+            });
+
+btnComprar?.addEventListener("click", (e) => {
+    // Log inicial: confirma que el navegador detectó el clic
+    console.log("--- INICIO DEL PROCESO DE COMPRA ---");
+    
+    e.stopPropagation();
+    e.preventDefault(); 
+    
+    // 1. Captura del título
+    compraActual.titulo = card.dataset.titulo;
+    console.log("1. Título capturado de la card:", compraActual.titulo);
+    
+    // 2. Manejo de la imagen
+    const imgDeTarjeta = card.querySelector('img')?.src;
+    const contenedorImgModal = document.getElementById('imgPeliModal');
+    
+    if (contenedorImgModal && imgDeTarjeta) {
+        contenedorImgModal.style.backgroundImage = `url('${imgDeTarjeta}')`;
+        contenedorImgModal.style.backgroundSize = "cover";
+        contenedorImgModal.style.backgroundPosition = "center";
+        console.log("2. Imagen cargada correctamente en el modal:", imgDeTarjeta);
+    } else {
+        console.warn("2. Advertencia: No se encontró 'imgPeliModal' o la imagen de la tarjeta.");
+    }
+
+    // 3. Actualización de textos
+    const txtTitulo = document.getElementById('txtPeliHorario');
+    if (txtTitulo) {
+        txtTitulo.innerText = compraActual.titulo;
+        console.log("3. Texto del modal actualizado.");
+    } else {
+        console.error("3. Error: No se encontró el elemento 'txtPeliHorario'.");
+    }
+
+    // 4. Apertura del modal
+    const modalHorarios = document.getElementById('modalHorarios');
+    if (modalHorarios) {
+        modalHorarios.classList.add('abierto');
+        console.log("4. ¡ÉXITO! Clase 'abierto' añadida a modalHorarios.");
+    } else {
+        console.error("4. Error CRÍTICO: No se encontró el ID 'modalHorarios' en el HTML.");
+    }
+});
+            // opcional: click en toda la tarjeta abre modal
+            card.addEventListener("click", () => {
+                abrirModal(payload());
+            });
+        });
+
+        // cerrar con X
+        btnCerrar.addEventListener("click", cerrarModal);
+
+        // reiniciar
+        btnReiniciar.addEventListener("click", () => {
+            videoModal.currentTime = 0;
+            videoModal.play().catch(() => { });
+        });
+
+        // cerrar al click fuera del contenido
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+
+        // cerrar con ESC
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("abierto")) cerrarModal();
+        });
+
+        // al terminar el video, puedes cerrar automáticamente si quieres:
+        // videoModal.addEventListener("ended", cerrarModal);
+
+        // BONUS: evitar que los thumbs se queden sonando (los dejamos muteados)
+        document.querySelectorAll(".thumb").forEach(v => {
+            v.muted = true;
+            v.loop = true;
+            // Si quieres que se mueva un poco tipo preview, descomenta:
+            // v.play().catch(()=>{});
+        });
+
+        function cerrarNuevoModal(id) {
+    document.getElementById(id).classList.remove('abierto');
+}
+
+function pasoAAsientos(hora) {
+    compraActual.hora = hora;
+    cerrarNuevoModal('modalHorarios');
+    
+    const grid = document.getElementById('gridAsientos');
+    grid.innerHTML = '';
+    compraActual.asientos = [];
+    actualizarResumenAsientos();
+
+    for (let i = 1; i <= 40; i++) {
+        const div = document.createElement('div');
+        div.className = 'asiento';
+        div.innerText = i;
+        if([5, 12, 22].includes(i)) div.classList.add('ocupado'); // Simulación
+        else {
+            div.onclick = () => {
+                div.classList.toggle('seleccionado');
+                if (compraActual.asientos.includes(i)) {
+                    compraActual.asientos = compraActual.asientos.filter(a => a !== i);
+                } else {
+                    compraActual.asientos.push(i);
+                }
+                actualizarResumenAsientos();
+            };
+        }
+        grid.appendChild(div);
+    }
+    document.getElementById('modalAsientos').classList.add('abierto');
+}
+
+function actualizarResumenAsientos() {
+    const total = compraActual.asientos.length * (compraActual.precio || 15);
+    
+    // 1. Mostrar asientos y pintar el texto "Asientos:"
+    const elAsientos = document.getElementById('txtAsientosSeleccionados');
+    if (elAsientos) {
+        elAsientos.innerText = compraActual.asientos.join(', ') || '-';
+        elAsientos.style.color = "#00ffff"; // Cian brillante para los números
+        
+        // Buscamos el texto que dice "Asientos:" (su padre o elemento previo)
+        if (elAsientos.parentElement) {
+            elAsientos.parentElement.style.color = "#ffffff"; // Blanco para el título
+        }
+    }
+
+    // 2. Mostrar monto y pintar el texto "Monto Total:"
+    const elMonto = document.getElementById('txtMontoAsientos');
+    if (elMonto) {
+        elMonto.innerText = total.toFixed(2);
+        elMonto.style.color = "#00ffff"; // Cian brillante para el monto
+        elMonto.style.fontSize = "1.5rem";
+        elMonto.style.fontWeight = "bold";
+
+        // Forzamos que la palabra "Monto Total:" sea blanca
+        if (elMonto.parentElement) {
+            elMonto.parentElement.style.color = "#ffffff"; 
+        }
+    }
+}
+
+function abrirPasarelaFinal() {
+    if (compraActual.asientos.length === 0) return alert("Selecciona tus asientos");
+    
+    cerrarNuevoModal('modalAsientos');
+    
+    montoTotal = compraActual.asientos.length * compraActual.precio;
+    
+    // --- NUEVO: ESTO LLENA TU BOLETA ELECTRÓNICA ---
+    document.getElementById('pdf-peli-nombre').innerText = compraActual.titulo;
+    document.getElementById('pdf-asientos-lista').innerText = compraActual.asientos.join(', ');
+    document.getElementById('pdf-hora-fijada').innerText = compraActual.hora;
+    document.getElementById('pdf-monto-total').innerText = montoTotal.toFixed(2);
+    // -----------------------------------------------
+
+    carrito = [{
+        nombre: `Ticket: ${compraActual.titulo} (${compraActual.hora}) - Asientos: ${compraActual.asientos.join(', ')}`,
+        precio: montoTotal
+    }];
+
+    document.getElementById('modalPago').classList.add('abierto');
+    document.getElementById('monto-total-pago').innerText = montoTotal.toFixed(2);
+}
+
+// PASO 1: Se ejecuta al dar clic en "PAGAR" en el Modal de Pago
+function procesarPago() {
+    // 1. Validar correo
+    const inputCorreo = document.getElementById('correo-pago');
+    if (!inputCorreo || !inputCorreo.value) {
+        return alert("Por favor, ingresa un correo electrónico válido para tu boleta.");
+    }
+    const correoVal = inputCorreo.value;
+
+    // 2. Llenar los datos en el elemento oculto de la página actual
+    const setTexto = (id, valor) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = valor;
+    };
+
+    setTexto('pdf-peli-nombre', compraActual.titulo);
+    setTexto('pdf-asientos-lista', compraActual.asientos.join(", "));
+    setTexto('pdf-hora-fijada', compraActual.hora);
+    setTexto('pdf-correo-cliente', correoVal);
+
+    const montoPagar = document.getElementById('monto-total-pago');
+    if (montoPagar) {
+        setTexto('pdf-monto-total', montoPagar.innerText);
+    }
+
+    // 3. Cerrar el modal de pago
+    cerrarNuevoModal('modalPago');
+
+    // 4. Capturar el contenido del div "boleta-pdf" para enviarlo a la nueva pestaña
+    const boletaContenedor = document.getElementById('boleta-pdf');
+    if (!boletaContenedor) {
+        return console.error("Error: No se encontró el contenedor #boleta-pdf");
+    }
+
+    // 5. ABRIR EN PESTAÑA APARTE CON EL HTML NECESARIO
+    const ventanaNueva = window.open('', '_blank', 'width=500,height=800');
+    
+    // Inyectamos el HTML con los estilos para que se vea igual que tu diseño
+    ventanaNueva.document.write(`
+        <html>
+        <head>
+            <title>Ticket Cinetec - ${compraActual.titulo}</title>
+            <style>
+                body { 
+                    background: #f4f4f4; 
+                    display: flex; 
+                    justify-content: center; 
+                    align-items: flex-start; 
+                    padding: 40px; 
+                    font-family: 'Courier New', monospace; 
+                }
+                /* Estilizamos el contenedor que recibe el innerHTML */
+                .wrapper-boleta { 
+                    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+                    background: white;
+                }
+                .btn-imprimir { 
+                    background: #a30000; 
+                    color: white; 
+                    padding: 15px; 
+                    font-weight: bold; 
+                    text-align: center; 
+                    cursor: pointer; 
+                    margin-top: 10px;
+                    border: none;
+                    width: 100%;
+                    display: block;
+                }
+                @media print { .btn-imprimir { display: none; } }
+            </style>
+        </head>
+        <body>
+            <div class="wrapper-boleta">
+                ${boletaContenedor.innerHTML}
+                <button class="btn-imprimir" onclick="window.print()">IMPRIMIR</button>
+            </div>
+        </body>
+        </html>
+    `);
+
+    ventanaNueva.document.close();
+
+    // 6. Limpiar y reiniciar la página principal
+    alert("Tu boleta se ha generado en una pestaña nueva.");
+    location.reload(); 
+}
+// PASO 2: Se ejecuta SOLO cuando el usuario hace clic en el botón ROJO de la boleta
+function descargarBoletaPDF_Manual() {
+    const elemento = document.getElementById('boleta-pdf');
+
+    const opciones = {
+        margin: 0.2,
+        filename: `Boleta_Cinetec_${compraActual.titulo}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 3, useCORS: true, logging: false },
+        jsPDF: { unit: 'in', format: [5, 8], orientation: 'portrait' }
+    };
+
+    // Usamos html2pdf para guardar el archivo
+    html2pdf().set(opciones).from(elemento).save().then(() => {
+        alert("¡Compra exitosa! Revisa tu carpeta de descargas.");
+        location.reload(); // Recarga la página para limpiar todo al final
+    }).catch(err => {
+        console.error("Error al generar PDF:", err);
+    });
+}
+    </script>
+</body>
+
+</html>

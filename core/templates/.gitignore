@@ -1,0 +1,9 @@
+db.sqlite3
+__pycache__/
+*.pyc
+.env
+.vscode/
+venv/
+node_modules/
+gunicorn.ctl
+*.ctl
